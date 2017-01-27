@@ -4,7 +4,7 @@ from __future__ import (
 
 from django.core.exceptions import ImproperlyConfigured
 from django.core.files.base import File
-from django.utils.encoding import smart_str
+from django.utils.encoding import smart_str, smart_unicode
 from django.utils.translation import get_language
 
 from lxml import objectify, etree
@@ -93,7 +93,7 @@ class MultiLingualText(object):
 
     def __unicode__(self):
         val = self.get_for_current_language()
-        return smart_str(val, errors='strict')
+        return smart_unicode(val, errors='strict')
 
     def as_xml(self):
         u"""Returns this instance as XML."""
