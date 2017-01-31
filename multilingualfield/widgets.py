@@ -201,7 +201,7 @@ class MultiLingualTextFieldWidget(MultiLingualFieldBaseMixInWidget,
         to the current ordering of settings.LANGUAGES.
         """
         text_dict = {}
-        if value:
+        if value is not None:
             # Both MultiLingualCharField and MultiLingualTextField instances
             # provide `MultiLingualText` instances by default but handling
             # for raw XML has been included for convenience.
@@ -225,7 +225,8 @@ class MultiLingualTextFieldWidget(MultiLingualFieldBaseMixInWidget,
                     # value XML with the language code (i.e. 'en', 'de', 'fr')
                     # as the key
                     text_dict = dict(
-                        (unicode(l.code), unicode(l.language_text or u''))
+                        (unicode(l.get('code')),
+                         unicode(l.get('language_text') or u''))
                         for l in xml_as_python_object.language
                     )
         # Returning text from XML tree in order dictated by LANGUAGES
