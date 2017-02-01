@@ -224,11 +224,12 @@ class MultiLingualTextFieldWidget(MultiLingualFieldBaseMixInWidget,
                     # Creating a dictionary of all the languages passed in the
                     # value XML with the language code (i.e. 'en', 'de', 'fr')
                     # as the key
-                    text_dict = dict(
-                        (unicode(l.get('code')),
-                         unicode(l.get('language_text') or u''))
-                        for l in xml_as_python_object.language
-                    )
+                    if hasattr(xml_as_python_object, 'language'):
+                        text_dict = dict(
+                            (unicode(l.get('code')),
+                             unicode(l.get('language_text') or u''))
+                            for l in xml_as_python_object.language
+                        )
         # Returning text from XML tree in order dictated by LANGUAGES
         return [text_dict.get(code, u'') for code, verbose in LANGUAGES]
 
